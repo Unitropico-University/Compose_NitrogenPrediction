@@ -1,0 +1,28 @@
+version: "3.8"
+name: ai-nitrogeno
+services:
+  back:
+    build: back
+    volumes:
+      - ./back/src:/app/src
+    ports:
+      - "8000:8000"
+    networks:
+      - default
+
+  front:
+    build: front
+    volumes:
+      - ./front/app:/app/app
+    ports:
+      - "3000:3000"
+    environment:
+      - WDS_SOCKET_HOST=127.0.0.1
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+    networks:
+      - default
+
+networks:
+  default:
+    name: mynetwork
